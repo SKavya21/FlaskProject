@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Bills</h3>
+{% if bills %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Bill ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill.id }}</td>
+                <td>{{ bill.date.strftime('%Y-%m-%d') }}</td>
+                <td>₹{{ bill.total_amount }}</td>
+                <td><a href="{{ url_for('bill_detail', bill_id=bill.id) }}" class="btn btn-sm btn-primary">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no bills yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Customers</h3>
+
+<!-- Add Customer Form -->
+<form method="post" action="{{ url_for('customers') }}" class="row g-3 mb-4">
+    <div class="col-md-5">
+        <input type="text" name="name" class="form-control" placeholder="Customer Name" required>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="contact" class="form-control" placeholder="Contact Number" required>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">Add</button>
+    </div>
+</form>
+
+<!-- Customers Table -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.contact }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Request Items Button OUTSIDE the form -->
+<div class="d-flex justify-content-end mt-4">
+    <a href="{{ url_for('request_items') }}" class="btn btn-primary">Request Items</a>
+</div>
+{% endblock %}

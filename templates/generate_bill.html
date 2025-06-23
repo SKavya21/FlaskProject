@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Generate Bill</h3>
+<form method="post">
+    <div class="mb-3">
+        <label for="customer" class="form-label">Select Customer</label>
+        <select name="customer" class="form-select" required>
+            {% for customer in customers %}
+            <option value="{{ customer.id }}">{{ customer.name }} ({{ customer.contact }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Select</th>
+                <th>Item</th>
+                <th>Available Qty</th>
+                <th>Price/kg</th>
+                <th>Quantity to Bill</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td><input type="checkbox" name="item_id" value="{{ item.id }}" onclick="toggleInput(this)"></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.price_per_kg }}</td>
+                <td><input type="number" name="quantity" step="0.1" class="form-control" disabled></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Generate Bill</button>
+</form>
+<script>
+function toggleInput(checkbox) {
+    let row = checkbox.closest('tr');
+    let qtyInput = row.querySelector('input[name=\"quantity\"]');
+    qtyInput.disabled = !checkbox.checked;
+}
+</script>
+{% endblock %}

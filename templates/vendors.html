@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Vendors</h3>
+
+{% if session.customer_id %}
+    <p>Welcome, customer!</p>
+    <ul class="list-group">
+        {% for vendor in vendors %}
+        <li class="list-group-item">
+            <strong>{{ vendor.name }}</strong>
+        </li>
+        {% endfor %}
+    </ul>
+{% elif session.vendor_id %}
+    <p>Welcome, vendor!</p>
+    <ul class="list-group">
+        {% for customer in customers %}
+        <li class="list-group-item">
+            <strong>{{ customer.name }}</strong> - {{ customer.contact }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Please log in to view vendor or customer data.</p>
+{% endif %}
+
+{% endblock %}

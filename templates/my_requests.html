@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">My Item Requests</h3>
+
+{% if requests %}
+<table class="table table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Requested At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req, item in requests %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ req.quantity }} kg</td>
+            <td>
+                <span class="badge bg-{{ 'secondary' if req.status == 'Pending' else 'info' if req.status == 'Approved' else 'success' }}">{{ req.status }}</span>
+            </td>
+            <td>{{ req.timestamp.strftime('%d-%m-%Y %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">You have not made any requests yet.</div>
+{% endif %}
+{% endblock %}
